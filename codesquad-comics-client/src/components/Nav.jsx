@@ -1,22 +1,22 @@
-import React from 'react';
+import React from 'react'
 import CodeSquadLogo from '../../public/images/images/CodeSquad-Comics-logo.jpg'
-const Header = () => {
+
+const Nav = () => {
   return (
-  <>
-      <header>
-        <a href="index.html">
-        <img src={CodeSquadLogo} className="base"  alt="" />
-        </a>
-        <nav>
-            <ul>
+    <>
+    <div className='header'>
+   <img src={CodeSquadLogo} className="base"  alt="" />
+   <ul>
                 <li><a href="index.html">Home</a></li>
                 <li><a href="about.html">About</a></li>
                 <li><a href="login.html">Login</a></li>
             </ul>
-        </nav>
-    </header>
-  </>
-  );
+    </div>
+    </>
+
+  )
 };
 
-export default Header;
+export default Nav
+
+
