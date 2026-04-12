@@ -181,7 +181,6 @@ const Admin = () => {
             </tr>
           </thead>
           <tbody>
-
             {booksData.map((book) => (
               <tr key={book.id}>
                 <td>{book.title}</td>
@@ -191,12 +190,7 @@ const Admin = () => {
                 <td>{book.pages}</td>
                 <td>{book.rating}</td>
                 <td>
-
-                  <button
-                    onClick={() => ("update.html")}
-                  >
-                    Edit
-                  </button>
+                  <button onClick={() => "update.html"}>Edit</button>
                   <button>Delete</button>
                 </td>
               </tr>
