@@ -1,13 +1,35 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const Signup = ({ user, setUser }) => {
+  const navigate = useNavigate();
+
   const handleSignupSubmit = (e) => {
     e.preventDefault();
-    console.log("Signup method ran");
-    console.log("First Name:", e.target.firstName.value);
-    console.log("Last Name:", e.target.lastName.value);
-    console.log("Username:", e.target.username.value);
-    console.log("Password:", e.target.password.value);
+
+    const body = {
+      firstName: e.target.firstName.value,
+      lastName: e.target.lastName.value,
+      username: e.target.username.value,
+      password: e.target.password.value,
+    };
+
+    fetch("https://course-project-codesquad-comics-server.onrender.com/signup", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+    })
+      .then((response) => {
+        if (!response.ok) throw new Error("Signup failed");
+        return response.json();
+      })
+      .then((data) => {
+        console.log("Signup successful!");
+        localStorage.setItem("user", JSON.stringify(data));
+        setUser(data); 
+        navigate("/admin");
+      })
+      .catch((error) => console.error("Error during signup:", error));
   };
 
   return (
@@ -17,23 +39,24 @@ const Signup = ({ user, setUser }) => {
       <form onSubmit={handleSignupSubmit} className="login">
         <div>
           <label htmlFor="firstName">First Name:</label>
-          <input type="text" name="firstName" required />
+          <input type="text" id="firstName" name="firstName" required />
         </div>
         <div>
           <label htmlFor="lastName">Last Name:</label>
-          <input type="text" name="lastName" required />
+          <input type="text" id="lastName" name="lastName" required />
         </div>
         <div>
           <label htmlFor="username">Username:</label>
-          <input type="text" name="username" required />
+          <input type="text" id="username" name="username" required />
         </div>
         <div>
           <label htmlFor="password">Password:</label>
-          <input type="password" name="password" required />
+          <input type="password" id="password" name="password" required />
         </div>
         <button type="submit">Submit</button>
       </form>
     </main>
   );
 };
+
 export default Signup;

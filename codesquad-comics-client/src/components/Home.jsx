@@ -6,7 +6,19 @@ const Home = () => {
   const [books, setBooks] = useState([]);
 
   useEffect(() => {
-    setBooks(booksData);
+    fetch("https://course-project-codesquad-comics-server.onrender.com/api/books")
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setBooks(data);
+      })
+      .catch((error) => {
+        console.error("There was an error fetching the books:", error);
+      });
   }, []);
 
   return (
@@ -22,8 +34,9 @@ const Home = () => {
         <h1>Complete Comic Collection</h1>
         <div className="comic-list">
           {books.map((book) => (
-            <div className="comic-card" key={book.id}>
+            <div className="comic-card" key={book._id || book.id}>
               <a href="#">
+              
                 <img src={book.image} alt={book.title} />
               </a>
               <h3>{book.title}</h3>

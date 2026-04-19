@@ -10,6 +10,7 @@ import Login from "./components/Login";
 import Update from "./components/Update";
 import Signup from "./components/Signup";
 import images from "./images/images";
+import { Routes, Route } from "react-router-dom";
 
 function App() {
   const [user, setUser] = useState(
@@ -18,15 +19,21 @@ function App() {
 
   return (
     <>
+   <div className="App">
       <Header user={user} setUser={setUser} />
-      <Home />
-      <About />
-      <Login user={user} setUser={setUser} />
-      <Signup user={user} setUser={setUser} />
-      <Admin />
-      <Create />
-      <Update />
+      
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/login" element={<Login user={user} setUser={setUser} />} />
+        <Route path="/signup" element={<Signup user={user} setUser={setUser} />} />
+        <Route path="/admin" element={<Admin />} />
+        <Route path="/create" element={<Create />} />
+        <Route path="/update/:id" element={<Update />} />
+      </Routes>
+
       <Footer />
+    </div>
     </>
   );
 }
